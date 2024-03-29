@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MarketApplication<market>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "net.kdigital.market.MarketApplication",
+            "projectName": "market",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

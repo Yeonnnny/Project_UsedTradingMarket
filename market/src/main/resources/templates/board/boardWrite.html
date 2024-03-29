@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매글 등록</title>
+</head>
+<body>
+
+    <div class="container">
+    
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/img/cat.png}" alt="로고">
+            </a>
+            <h2>판매글 등록</h2>
+        </div>
+    
+        <div class="content">
+    
+            <form th:action="@{/board/boardWrite}" method="post">
+
+                <label for="category">
+                    카테고리 : <select name="category" id="category">
+                                    <option value="clothes">옷</option>
+                                    <option value="shoes">신발</option>
+                                    <option value="bag">가방</option>
+                                </select>
+                </label>
+
+                <label for="title">
+                    제목 : <input type="text" name="title" id="title">
+                </label>
+
+                <label for="contents">
+                    내용 : <textarea name="contents" id="contents" cols="30" rows="10"></textarea>
+                </label>
+
+                <input type="submit" id="saveBtn" value="저장">
+
+            </form>
+    
+    
+        </div>
+    
+</body>
+</html>
