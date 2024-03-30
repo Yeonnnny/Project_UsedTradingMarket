@@ -42,6 +42,25 @@ public class BoardService {
     }
 
     /**
+     * 전달받은 boardNum에 대한 dto반환하는 함수
+     * 
+     * @param boardNum
+     * @return
+     */
+    public BoardDTO selectOne(Long boardNum) {
+
+        Optional<BoardEntity> entity = repository.findById(boardNum);
+
+        if (entity.isPresent()) {
+            BoardEntity boardEntity = entity.get();
+            return BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId(),
+                    boardEntity.getBuyerEntity().getMemId());
+        }
+
+        return null;
+    }
+
+    /**
      * 전달받은 boardNum에 해당하는 게시글 삭제
      * 
      * @param boardNum

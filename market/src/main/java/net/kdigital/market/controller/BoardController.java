@@ -63,7 +63,9 @@ public class BoardController {
      * @return
      */
     @GetMapping("/boardDetail")
-    public String boardDetail() {
+    public String boardDetail(@RequestParam(name = "boardNum") Long boardNum, Model model) {
+        BoardDTO dto = service.selectOne(boardNum);
+        model.addAttribute("board", dto);
         return "board/boardDetail";
     }
 
