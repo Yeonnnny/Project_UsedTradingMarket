@@ -34,6 +34,12 @@ public class CommentController {
         return result;
     }
 
+    /**
+     * 코멘트 작성 요청
+     * 
+     * @param commentDTO
+     * @return
+     */
     @PostMapping("/commentWrite")
     public CommentDTO commentWrite(@ModelAttribute CommentDTO commentDTO) {
         CommentDTO dto = service.insert(commentDTO);
