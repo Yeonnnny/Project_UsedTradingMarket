@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+<body>
+
+    <h2>회원가입</h2>
+
+    <form th:action="@{/user/join}" method="post">
+        <table>
+            <tr>
+                <th>ID </th>
+                <td>
+                    <input type="text" name="memId">
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호 </th>
+                <td>
+                    <input type="password" name="memPw">
+                </td>
+            </tr>
+            <tr>
+                <th>이름 </th>
+                <td>
+                    <input type="text" name="memName">
+                </td>
+            </tr>
+            <tr>
+                <th>전화번호 </th>
+                <td>
+                    <input type="text" name="phone">
+                </td>
+            </tr>
+        </table>
+        
+        <input type="submit" value="가입">
+        <input type="reset" value="다시 쓰기">
+    </form>
+    
+</body>
+</html>

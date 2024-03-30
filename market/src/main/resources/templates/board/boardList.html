@@ -31,10 +31,10 @@
                     <th>작성자</th>
                 </tr>
 
-                <tr th:each="${board :list}">
-                    <td th:value="${board.boardNum}"></td>
-                    <td th:value="${board.title}"></td>
-                    <td th:value="${board.memid}"></td>
+                <tr th:each="board : ${list}">
+                    <td th:text="${board.boardNum}"></td>
+                    <td th:text="${board.title}"></td>
+                    <td th:text="${board.memId}"></td>
                 </tr>
             </table>
 
