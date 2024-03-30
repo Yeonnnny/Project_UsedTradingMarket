@@ -35,14 +35,19 @@ public class CommentController {
     }
 
     /**
-     * 코멘트 작성 요청
+     * 코멘트 등록 요청
      * 
      * @param commentDTO
      * @return
      */
-    @PostMapping("/commentWrite")
-    public CommentDTO commentWrite(@ModelAttribute CommentDTO commentDTO) {
+    @GetMapping("/commentWrite")
+    public CommentDTO commentWrite(@RequestParam(name = "boardNum") Long boardNum,
+            @RequestParam(name = "commentText") String commentText,
+            @RequestParam(name = "memId") String memId) {
+        CommentDTO commentDTO = new CommentDTO(boardNum, memId, commentText);
+
         CommentDTO dto = service.insert(commentDTO);
+
         return dto;
     }
 

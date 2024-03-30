@@ -23,6 +23,12 @@ public class CommentDTO {
     private String commentText;
     private LocalDateTime inputDate;
 
+    public CommentDTO(Long boardNum, String memId, String commentText) {
+        this.boardNum = boardNum;
+        this.memId = memId;
+        this.commentText = commentText;
+    }
+
     public static CommentDTO toDTO(CommentEntity commentEntity, Long boardNum, String memId) {
         return CommentDTO.builder()
                 .commentNum(commentEntity.getCommentNum())
