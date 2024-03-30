@@ -17,20 +17,20 @@ import net.kdigital.market.entity.CommentEntity;
 @ToString
 @Builder
 public class CommentDTO {
-    private String commentNum;
+    private Long commentNum;
     private Long boardNum;
     private String memId;
     private String commentText;
-    private  LocalDateTime inputDate;
+    private LocalDateTime inputDate;
 
-    public static CommentDTO toEntity (CommentEntity commentEntity, Long boardNum, String memId){
+    public static CommentDTO toDTO(CommentEntity commentEntity, Long boardNum, String memId) {
         return CommentDTO.builder()
-                            .commentNum(commentEntity.getCommentNum())
-                            .boardNum(boardNum)
-                            .memId(memId)
-                            .commentText(commentEntity.getCommentText())
-                            .inputDate(commentEntity.getInputDate())
-                            .build();
+                .commentNum(commentEntity.getCommentNum())
+                .boardNum(boardNum)
+                .memId(memId)
+                .commentText(commentEntity.getCommentText())
+                .inputDate(commentEntity.getInputDate())
+                .build();
     }
 
 }

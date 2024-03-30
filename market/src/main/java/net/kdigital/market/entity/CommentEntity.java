@@ -31,22 +31,19 @@ import net.kdigital.market.dto.CommentDTO;
 @Entity
 @Table(name = "market_comment")
 public class CommentEntity {
-    
-    @SequenceGenerator(
-        name = "market_comment_seq",
-        sequenceName = "market_comment_seq",
-        allocationSize = 1,
-        initialValue = 1
-    )
-    @Id
-    @Column(name="comment_num")
-    @GeneratedValue(generator = "market_comment_seq")
-    private String commentNum;
 
+    @SequenceGenerator(name = "market_comment_seq", sequenceName = "market_comment_seq", allocationSize = 1, initialValue = 1)
+    @Id
+    @Column(name = "comment_num")
+    @GeneratedValue(generator = "market_comment_seq")
+    private Long commentNum;
+
+    // FK
     @ManyToOne
-    @JoinColumn(name="board_num")
+    @JoinColumn(name = "board_num")
     private BoardEntity boardEntity;
 
+    // FK
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemEntity memEntity;
@@ -56,17 +53,16 @@ public class CommentEntity {
 
     @Column(name = "input_date")
     @CreationTimestamp
-    private  LocalDateTime inputDate;    
+    private LocalDateTime inputDate;
 
-
-    public static CommentEntity toEntity (CommentDTO commentDTO,BoardEntity boardEntity, MemEntity memEntity){
+    public static CommentEntity toEntity(CommentDTO commentDTO, BoardEntity boardEntity, MemEntity memEntity) {
         return CommentEntity.builder()
-                            .commentNum(commentDTO.getCommentNum())
-                            .boardEntity(boardEntity)
-                            .memEntity(memEntity)
-                            .commentText(commentDTO.getCommentText())
-                            .inputDate(commentDTO.getInputDate())
-                            .build();
+                .commentNum(commentDTO.getCommentNum())
+                .boardEntity(boardEntity)
+                .memEntity(memEntity)
+                .commentText(commentDTO.getCommentText())
+                .inputDate(commentDTO.getInputDate())
+                .build();
     }
 
 }
