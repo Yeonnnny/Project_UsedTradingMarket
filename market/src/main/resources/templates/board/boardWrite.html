@@ -19,6 +19,8 @@
         <div class="content">
     
             <form th:action="@{/board/boardWrite}" method="post">
+                <!-- 수정할 것 -->
+                <input type="hidden" name="memId" value="도연">
 
                 <label for="category">
                     카테고리 : <select name="category" id="category">

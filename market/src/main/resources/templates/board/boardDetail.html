@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매 정보</title>
+
+    <!-- JQuery -->
+    <script th:src="@{script/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function () {
+            $("#addCmtBtn").on("click",addCmt);
+        })
+
+        function addCmt() {
+            let boardNum = $("#boardNum").val();
+            let commentText = $("#cmtText").val();
+            // let loginID = $("#loginId").val();
+            let loginID = "도연";
+            $.ajax({
+                url:"/comment/commentWrite",
+                method:"POST",
+                data:{"boardNum":boardNum, "commentText":commentText,"memId":loginID},
+                success: function(resp){
+                    let data = `<tr>
+                                    <td>${resp["memId"]}<td>
+                                    <td>${resp["commentText"]}<td>
+                                    <td>${resp["inputDate"]}<td>
+                                <tr>`;
+                    $("#cmtTable").prepend(data);
+                }
+            })
+        }
+    </script>
+
+</head>
+<body>
+    <input type="hidden" id="boardNum" th:value="${board.boardNum}">
+    <div class="container">
+    
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/img/cat.png}" alt="로고">
+            </a>
+            <h2>판매 정보</h2>
+        </div>
+    
+        <div class="content">
+    
+            <table>
+                <tr>
+                    <th>작성자</th>
+                    <td th:value="${board.memId}"></td>
+                </tr>
+                <tr>
+                    <th>작성일</th>
+                    <td th:value="${board.inpuDate}"></td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td th:value="${board.title}"></td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td th:value="${board.contents}"></td>
+                </tr>
+            </table>
+            
+            <a th:href="@{/board/boardDelete(boardNum=${board.boardNum})}">삭제</a>
+
+        </div>
+
+        <div class="comment">
+            <input type="text" id="cmtText"> <input type="button" id="addCmtBtn" value="확인">
+            <table id="cmtTable">
+
+            </table>
+
+        </div>
+    
+</body>
+</html>

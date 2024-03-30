@@ -22,8 +22,21 @@
 
         <div class="content">
 
+            <span th:if="${#lists.isEmpty(list)}" style="color: red; font-weight: bold;"> <br><br> 판매 정보가 존재하지 않습니다.</span>
 
+            <table th:unless="${#lists.isEmpty(list)}">
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                </tr>
 
+                <tr th:each="${board :list}">
+                    <td th:value="${board.boardNum}"></td>
+                    <td th:value="${board.title}"></td>
+                    <td th:value="${board.memid}"></td>
+                </tr>
+            </table>
 
         </div>
 
