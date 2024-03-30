@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>로그인</title>
 </head>
 <body>
+    <div class="container">
+
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/img/cat.png}" alt="로고">
+            </a>
+            <h2>  [로그인] </h2>
+        </div>
+        
+        <form th:action="@{/user/loginProc}" method="post">
+            <table>
+                <tr>
+                    <th>ID </th>
+                    <td>
+                        <input type="text" name="memId">
+                    </td>
+                </tr>
+                <tr>
+                    <th>비밀번호 </th>
+                    <td>
+                        <input type="password" name="memPw">
+                    </td>
+                </tr>
+            </table>
+        
+        <input type="submit" value="LOGIN">
+    </form>
+    </div>
     
 </body>
 </html>
