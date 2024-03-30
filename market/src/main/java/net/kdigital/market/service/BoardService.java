@@ -1,5 +1,7 @@
 package net.kdigital.market.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -17,12 +19,24 @@ public class BoardService {
     private final BoardRepository repository;
     private final MemRepository memRepository;
 
+    public List<BoardDTO> selectAll() {
+        List<BoardEntity> entiyList = repository.findAll();
+
+        List<BoardDTO> dtoList = new ArrayList<>();
+
+        entiyList.forEach((entity) -> {
+            dtoList.add(BoardDTO.toDTO(entity, entity.getMemEntity().getMemId(), entity.getBuyerEntity().getMemId()));
+        });
+
+        return dtoList;
+    }
+
     /**
      * 전달받은 dto를 entity로 변경하여 DB에 등록하는 함수
      * 
      * @param boardDTO
      */
-    public void insertBoard(BoardDTO boardDTO) {
+    public void insert(BoardDTO boardDTO) {
         BoardEntity entity = BoardEntity.toEntity(boardDTO, null);
         repository.save(entity);
     }
@@ -32,7 +46,7 @@ public class BoardService {
      * 
      * @param boardNum
      */
-    public void deleteBoard(Long boardNum) {
+    public void delete(Long boardNum) {
         repository.deleteById(boardNum);
     }
 

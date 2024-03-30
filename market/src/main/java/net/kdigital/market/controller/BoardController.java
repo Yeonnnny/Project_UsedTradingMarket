@@ -1,6 +1,9 @@
 package net.kdigital.market.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.BoardDTO;
 import net.kdigital.market.service.BoardService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -25,7 +27,9 @@ public class BoardController {
      * @return
      */
     @GetMapping("/boardList")
-    public String boardList() {
+    public String boardList(Model model) {
+        List<BoardDTO> dtoList = service.selectAll();
+        model.addAttribute("list", dtoList);
         return "board/boardList";
     }
 
@@ -48,7 +52,7 @@ public class BoardController {
     @PostMapping("/boardWrite")
     public String boardWrite(@ModelAttribute BoardDTO boardDTO) {
 
-        service.insertBoard(boardDTO);
+        service.insert(boardDTO);
 
         return "redirect:/boardList";
     }
@@ -71,7 +75,7 @@ public class BoardController {
      */
     @GetMapping("/boardDelete")
     public String boardDelete(@RequestParam(name = "boardNum") Long boardNum) {
-        service.deleteBoard(boardNum);
+        service.delete(boardNum);
 
         return "redirect:/boardList";
     }
