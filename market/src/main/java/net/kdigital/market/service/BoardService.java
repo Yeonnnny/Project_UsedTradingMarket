@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.BoardDTO;
+import net.kdigital.market.dto.SoldoutEnum;
 import net.kdigital.market.entity.BoardEntity;
 import net.kdigital.market.entity.MemEntity;
 import net.kdigital.market.repository.BoardRepository;
@@ -37,8 +38,12 @@ public class BoardService {
      * @param boardDTO
      */
     public void insert(BoardDTO boardDTO) {
-        BoardEntity entity = BoardEntity.toEntity(boardDTO, null);
-        repository.save(entity);
+        Optional<MemEntity> memEntity = memRepository.findById(boardDTO.getMemId());
+        if (memEntity.isPresent()) {
+            MemEntity mem = memEntity.get();
+            BoardEntity boardEntity = BoardEntity.toEntity(boardDTO, mem);
+            repository.save(boardEntity);
+        }
     }
 
     /**
@@ -83,7 +88,7 @@ public class BoardService {
         if (entity.isPresent()) {
             BoardEntity boardEntity = entity.get();
             // 1) 상품 soldout 값 변경
-            boardEntity.setSoldout(true);
+            boardEntity.setSoldout(SoldoutEnum.Y);
             // 2) 상품 구매 회원 정보 등록
             Optional<MemEntity> memEntity = memRepository.findById(loginId);
             if (memEntity.isPresent()) {

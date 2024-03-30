@@ -24,19 +24,19 @@ public class BoardDTO {
     private String contents;
     private LocalDateTime inputDate;
     private String category;
-    private boolean soldout;
+    private SoldoutEnum soldout;
     private String buyerId;
 
-    public static BoardDTO toDTO(BoardEntity boardEntity, String memId, String buyerId){
+    public static BoardDTO toDTO(BoardEntity boardEntity, String memId, String buyerId) {
         return BoardDTO.builder()
-                        .boardNum(boardEntity.getBoardNum())
-                        .memId(memId)
-                        .title(boardEntity.getTitle())
-                        .contents(boardEntity.getContents())
-                        .inputDate(boardEntity.getInputDate())
-                        .category(boardEntity.getCategory())
-                        .soldout(boardEntity.isSoldout())
-                        .buyerId(buyerId)
-                        .build();
+                .boardNum(boardEntity.getBoardNum())
+                .memId(memId)
+                .title(boardEntity.getTitle())
+                .contents(boardEntity.getContents())
+                .inputDate(boardEntity.getInputDate())
+                .category(boardEntity.getCategory())
+                .soldout(boardEntity.getSoldout())
+                .buyerId(buyerId)
+                .build();
     }
 }

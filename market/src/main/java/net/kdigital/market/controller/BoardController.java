@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.kdigital.market.dto.BoardDTO;
 import net.kdigital.market.service.BoardService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@Slf4j
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
@@ -51,10 +53,11 @@ public class BoardController {
      */
     @PostMapping("/boardWrite")
     public String boardWrite(@ModelAttribute BoardDTO boardDTO) {
+        log.info("{}", boardDTO.toString());
 
         service.insert(boardDTO);
 
-        return "redirect:/boardList";
+        return "redirect:/board/boardList";
     }
 
     /**
@@ -79,7 +82,7 @@ public class BoardController {
     public String boardDelete(@RequestParam(name = "boardNum") Long boardNum) {
         service.delete(boardNum);
 
-        return "redirect:/boardList";
+        return "redirect:/board/boardList";
     }
 
     /**
