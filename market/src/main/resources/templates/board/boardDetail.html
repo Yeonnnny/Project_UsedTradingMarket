@@ -10,17 +10,19 @@
     <script>
         $(function () {
             $("#addCmtBtn").on("click",addCmt);
+            init();
         })
 
+        // 댓글 추가 함수
         function addCmt() {
             let boardNum = $("#boardNum").val();
             let commentText = $("#cmtText").val();
-            // let loginID = $("#loginId").val();
-            let loginID = "도연";
+            let loginID = $("#loginId").val();
+
             $.ajax({
                 url:"/comment/commentWrite",
                 method:"POST",
-                data:{"boardNum":boardNum, "commentText":commentText,"memId":loginID},
+                data:{"boardNum":boardNum, "commentText":commentText, "memId":loginID},
                 success: function(resp){
                     let data = `<tr>
                                     <td>${resp["memId"]}<td>
@@ -31,11 +33,34 @@
                 }
             })
         }
+
+        function init() {
+            $.ajax({
+                url:"/comment/commentAll",
+                method:"GET",
+                success:output
+            });
+        }
+
+        // 모든 댓글 출력 함수
+        function output(resp) {
+            let data="";
+            for (let i = 0; i < resp.length; i++) {
+                data += `<tr>
+                            <td>${resp["memId"]}<td>
+                            <td>${resp["commentText"]}<td>
+                            <td>${resp["inputDate"]}<td>
+                        </tr>`
+            }
+            $("#cmtTable").html(data);
+        }
     </script>
 
 </head>
 <body>
     <input type="hidden" id="boardNum" th:value="${board.boardNum}">
+    <input type="hidden" id="loginId" th:value="${#authentication.name}">
+    
     <div class="container">
     
         <div class="logo">
@@ -65,14 +90,21 @@
                     <td th:text="${board.contents}"></td>
                 </tr>
             </table>
+            <!-- 글 삭제 버튼은 글 작성자에게만 나타나야 함 -->
+            <th:block th:if="${board.memId == #authentication.name}">
+                <a th:href="@{/board/boardDelete(boardNum=${board.boardNum})}">삭제하기</a>
+            </th:block>
             
-            <a th:href="@{/board/boardDelete(boardNum=${board.boardNum})}">삭제하기</a>
-            <a th:href="@{/board/purchase(boardNum=${board.boardNum})}">구매하기</a>
+            <!-- 글 구매는 글 작성자를 제외한 사용자가 보는 경우에 나타나야 함 -->
+            <th:block th:unless="${board.memId == #authentication.name}">
+                <a th:href="@{/board/purchase(boardNum=${board.boardNum})}">구매하기</a>
+            </th:block>
 
         </div>
 
         <div class="comment">
             <input type="text" id="cmtText"> <input type="button" id="addCmtBtn" value="확인">
+            
             <table id="cmtTable">
 
             </table>
