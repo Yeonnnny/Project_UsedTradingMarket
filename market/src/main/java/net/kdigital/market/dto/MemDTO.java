@@ -22,15 +22,15 @@ public class MemDTO {
     private boolean enabled;
     private String rolename;
 
-    public static MemDTO toDTO(MemEntity memEntity){
+    public static MemDTO toDTO(MemEntity memEntity) {
         return MemDTO.builder()
-                        .memId(memEntity.getMemId())
-                        .memPw(memEntity.getMemPw())
-                        .memName(memEntity.getMemName())
-                        .phone(memEntity.getPhone())
-                        .enabled(memEntity.isEnabled())
-                        .rolename(memEntity.getRolename())
-                        .build();
+                .memId(memEntity.getMemId())
+                .memPw(memEntity.getMemPw())
+                .memName(memEntity.getMemName())
+                .phone(memEntity.getPhone())
+                .enabled(memEntity.isEnabled())
+                .rolename(memEntity.getRolename())
+                .build();
     }
 
 }
