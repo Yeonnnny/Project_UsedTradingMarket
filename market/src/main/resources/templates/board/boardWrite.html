@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매글 등록</title>
 
+    <!-- JQuery -->
+    <script th:src="@{script/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function() {
+            $("#saveBtn").on("click", validation);
+        })
+
+        function validation() {
+            let title = $("#title").val();
+            let contents = $("#contents").val();
+
+            // 제목 길이 확인 (5글자 이하면 경고창)
+            if (title.trim().length <=5) {
+                alert("제목을 5자 이상 입력해주세요");
+                $("#title").select();
+                return;
+            }
+
+            // 내용 길이 확인 (5글자 이하면 경고창)
+            if (title.trim().length <=5) {
+                alert("내용을 5자 이상 입력해주세요");
+                $("#contents").select();
+                return;
+            }
+
+        }
+
+    </script>
+
     
 </head>
 <body>
