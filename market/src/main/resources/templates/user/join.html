@@ -4,6 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+
+    <!-- JQuery -->
+    <script th:src="@{script/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function(){
+            $("#joinBtn").on("click", validaion);
+        })
+
+        // 유효성 검사
+        function validaion() {
+            let memId = $("#memId").val();
+            let memPw = $("#memPw").val();
+            let memName = $("#memName").val();
+            let phone = $("#phone").val();
+
+            // 아이디/비밀번호 3~10자 입력하지 않은 경우 경고창
+            if (memId.trim().length<3 || memId.trim().length>10) {
+                alert("아이디는 3~10자로 입력해주세요.");
+                $("#memId").select();
+                return;
+            }
+            if (memPw.trim().length<3 || memPw.trim().length>10) {
+                alert("비밀번호는 3~10자로 입력해주세요.");
+                $("#memPw").select();
+                return;
+            }
+
+            // 이름/ 전화번호 입력여부 확인 후 입력하지 않은 경우 경고창
+            if (memName.trim().length==0) {
+                alert("이름을 입력해주세요.");
+                $("#memName").select();
+                return;
+            }
+            if (phone.trim().length==0) {
+                alert("전화번호를 입력해주세요.");
+                $("#phone").select();
+                return;
+            }
+
+
+        }
+    </script>
+
+
 </head>
 <body>
 
@@ -14,30 +58,30 @@
             <tr>
                 <th>ID </th>
                 <td>
-                    <input type="text" name="memId">
+                    <input type="text" id="memId" name="memId" placeholder="ID 입력">
                 </td>
             </tr>
             <tr>
                 <th>비밀번호 </th>
                 <td>
-                    <input type="password" name="memPw">
+                    <input type="password" id="memPw" name="memPw" placeholder="비밀번호 입력">
                 </td>
             </tr>
             <tr>
                 <th>이름 </th>
                 <td>
-                    <input type="text" name="memName">
+                    <input type="text" id="memName" name="memName" placeholder="이름 입력">
                 </td>
             </tr>
             <tr>
                 <th>전화번호 </th>
                 <td>
-                    <input type="text" name="phone">
+                    <input type="text" id="phone" name="phone" placeholder="ex)010-0000-0000">
                 </td>
             </tr>
         </table>
         
-        <input type="submit" value="가입">
+        <input type="submit" id="joinBtn" value="가입">
         <input type="reset" value="다시 쓰기">
     </form>
     
