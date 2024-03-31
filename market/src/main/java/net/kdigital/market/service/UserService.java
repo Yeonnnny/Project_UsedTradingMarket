@@ -26,6 +26,9 @@ public class UserService {
         if (isExistUser)
             return false;
 
+        // enabled(계정상태) true(사용가능)로 변경
+        memDTO.setEnabled(true);
+
         // 비밀번호 암호화
         memDTO.setMemPw(bCryptPasswordEncoder.encode(memDTO.getMemPw()));
 
