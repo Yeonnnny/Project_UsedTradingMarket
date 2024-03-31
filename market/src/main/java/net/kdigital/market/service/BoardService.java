@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.kdigital.market.dto.BoardDTO;
 import net.kdigital.market.dto.SoldoutEnum;
 import net.kdigital.market.entity.BoardEntity;
@@ -14,19 +15,29 @@ import net.kdigital.market.entity.MemEntity;
 import net.kdigital.market.repository.BoardRepository;
 import net.kdigital.market.repository.MemRepository;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository repository;
     private final MemRepository memRepository;
 
+    /**
+     * 현재 판매중(soldout=false)인 상품들만 반환하는 함수
+     * 
+     * @return
+     */
     public List<BoardDTO> selectAll() {
         List<BoardEntity> entiyList = repository.findAll();
 
         List<BoardDTO> dtoList = new ArrayList<>();
 
         entiyList.forEach((entity) -> {
-            dtoList.add(BoardDTO.toDTO(entity, entity.getMemEntity().getMemId(), entity.getBuyerEntity().getMemId()));
+            // 판매 가능한 상품만 반환 리스트에 담기
+            if (entity.getSoldout() == SoldoutEnum.N) {
+                dtoList.add(
+                        BoardDTO.toDTO(entity, entity.getMemEntity().getMemId(), entity.getBuyerEntity().getMemId()));
+            }
         });
 
         return dtoList;
@@ -38,6 +49,8 @@ public class BoardService {
      * @param boardDTO
      */
     public void insert(BoardDTO boardDTO) {
+        // soldout 값 넣기
+        boardDTO.setSoldout(SoldoutEnum.N);
         Optional<MemEntity> memEntity = memRepository.findById(boardDTO.getMemId());
         if (memEntity.isPresent()) {
             MemEntity mem = memEntity.get();
