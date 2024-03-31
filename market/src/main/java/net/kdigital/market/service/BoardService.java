@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.kdigital.market.dto.BoardDTO;
@@ -36,7 +37,7 @@ public class BoardService {
             // 판매 가능한 상품만 반환 리스트에 담기
             if (entity.getSoldout() == SoldoutEnum.N) {
                 dtoList.add(
-                        BoardDTO.toDTO(entity, entity.getMemEntity().getMemId(), entity.getBuyerEntity().getMemId()));
+                        BoardDTO.toDTO(entity, entity.getMemEntity().getMemId()));
             }
         });
 
@@ -51,10 +52,12 @@ public class BoardService {
     public void insert(BoardDTO boardDTO) {
         // soldout 값 넣기
         boardDTO.setSoldout(SoldoutEnum.N);
+
         Optional<MemEntity> memEntity = memRepository.findById(boardDTO.getMemId());
         if (memEntity.isPresent()) {
             MemEntity mem = memEntity.get();
             BoardEntity boardEntity = BoardEntity.toEntity(boardDTO, mem);
+
             repository.save(boardEntity);
         }
     }
@@ -71,8 +74,7 @@ public class BoardService {
 
         if (entity.isPresent()) {
             BoardEntity boardEntity = entity.get();
-            return BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId(),
-                    boardEntity.getBuyerEntity().getMemId());
+            return BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId());
         }
 
         return null;
@@ -95,19 +97,19 @@ public class BoardService {
      * @param boardNum
      * @param loginId
      */
-    public void purchase(Long boardNum, String loginId) {
+    @Transactional
+    public void purchase(Long boardNum, String buyerId) {
+        log.info("==== 구매 요청 in service");
+
         Optional<BoardEntity> entity = repository.findById(boardNum);
 
         if (entity.isPresent()) {
             BoardEntity boardEntity = entity.get();
             // 1) 상품 soldout 값 변경
             boardEntity.setSoldout(SoldoutEnum.Y);
-            // 2) 상품 구매 회원 정보 등록
-            Optional<MemEntity> memEntity = memRepository.findById(loginId);
-            if (memEntity.isPresent()) {
-                MemEntity mem = memEntity.get();
-                boardEntity.setBuyerEntity(mem);
-            }
+            // 2) 상품 구매 회원 아이디 등록
+            boardEntity.setBuyerId(buyerId);
+            log.info("변경 후 : {}", boardEntity.getSoldout());
         }
     }
 

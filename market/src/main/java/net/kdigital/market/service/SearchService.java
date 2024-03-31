@@ -28,7 +28,7 @@ public class SearchService {
         List<BoardDTO> dtoList = new ArrayList<>();
 
         entityList.forEach((entity) -> {
-            dtoList.add(BoardDTO.toDTO(entity, entity.getMemEntity().getMemId(), entity.getBuyerEntity().getMemId()));
+            dtoList.add(BoardDTO.toDTO(entity, entity.getMemEntity().getMemId()));
         });
 
         return dtoList;
@@ -45,8 +45,7 @@ public class SearchService {
         Optional<BoardEntity> entity = repository.findById(boardNum);
         if (entity.isPresent()) {
             BoardEntity boardEntity = entity.get();
-            return BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId(),
-                    boardEntity.getBuyerEntity().getMemId());
+            return BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId());
         }
         return null;
     }

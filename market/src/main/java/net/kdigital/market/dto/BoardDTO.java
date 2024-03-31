@@ -27,7 +27,7 @@ public class BoardDTO {
     private SoldoutEnum soldout;
     private String buyerId;
 
-    public static BoardDTO toDTO(BoardEntity boardEntity, String memId, String buyerId) {
+    public static BoardDTO toDTO(BoardEntity boardEntity, String memId) {
         return BoardDTO.builder()
                 .boardNum(boardEntity.getBoardNum())
                 .memId(memId)
@@ -36,7 +36,7 @@ public class BoardDTO {
                 .inputDate(boardEntity.getInputDate())
                 .category(boardEntity.getCategory())
                 .soldout(boardEntity.getSoldout())
-                .buyerId(buyerId)
+                .buyerId(boardEntity.getBuyerId())
                 .build();
     }
 }

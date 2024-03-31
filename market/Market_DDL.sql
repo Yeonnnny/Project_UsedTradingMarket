@@ -25,7 +25,7 @@ create table market_board(
     input_date date default sysdate,
     category varchar2(50) check(category in ('clothes','shoes','bag')),
     soldout char(1) default 'N' check(soldout in ('N','Y')),
-    buyer_id varchar2(20) references market_member(member_id) on delete cascade
+    buyer_id varchar2(20)
 );
 create sequence market_board_seq;
 
