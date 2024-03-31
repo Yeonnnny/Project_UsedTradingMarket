@@ -32,8 +32,8 @@
                 </tr>
 
                 <tr th:each="board : ${list}">
-                    <td th:text="${board.boardNum}"></td>
-                    <td th:text="${board.title}"></td>
+                    <td th:text="${board.boardNum}"></a></td>
+                    <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
                     <td th:text="${board.memId}"></td>
                 </tr>
             </table>
