@@ -6,13 +6,16 @@
     <title>판매글 등록</title>
 
     <!-- JQuery -->
-    <script th:src="@{script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
     <script>
         $(function() {
-            $("#saveBtn").on("click", validation);
+            $("#saveBtn").on("click", save);
         })
 
-        function validation() {
+        // 유효성 검사 후 post로 보내기
+        function save() {
+            let memId = $("#memId").val();
+            let category = $("#category").val();
             let title = $("#title").val();
             let contents = $("#contents").val();
 
@@ -29,6 +32,12 @@
                 $("#contents").select();
                 return;
             }
+
+            $.ajax({
+                url:"/board/boardWrite",
+                method:"POST",
+                data:{"memId":memId, "title":title, "contents":contents, "category":category}
+            })
 
         }
 
@@ -51,7 +60,7 @@
     
             <form th:action="@{/board/boardWrite}" method="post">
                 <!-- 수정할 것 -->
-                <input type="hidden" name="memId" value="dy">
+                <input type="hidden" name="memId" th:value="${#authentication.name}">
 
                 <label for="category">
                     카테고리 : <select name="category" id="category">
@@ -69,7 +78,7 @@
                     내용 : <textarea name="contents" id="contents" cols="30" rows="10"></textarea>
                 </label>
 
-                <input type="submit" id="saveBtn" value="저장">
+                <input type="button" id="saveBtn" value="저장">
 
             </form>
             
