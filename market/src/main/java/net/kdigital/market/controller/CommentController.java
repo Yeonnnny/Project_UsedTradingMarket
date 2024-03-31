@@ -39,6 +39,7 @@ public class CommentController {
      * @return
      */
     @GetMapping("/commentWrite")
+    @ResponseBody
     public CommentDTO commentWrite(@RequestParam(name = "boardNum") Long boardNum,
             @RequestParam(name = "commentText") String commentText,
             @RequestParam(name = "memId") String memId) {
