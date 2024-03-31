@@ -1,6 +1,7 @@
 package net.kdigital.market.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.MemDTO;
@@ -8,8 +9,8 @@ import net.kdigital.market.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,6 +37,7 @@ public class UserController {
     @PostMapping("/join")
     public String join(@ModelAttribute MemDTO memDTO) {
 
+        memDTO.setEnabled(true);
         service.insert(memDTO);
 
         return "redirect:/";
@@ -47,7 +49,11 @@ public class UserController {
      * @return
      */
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(name = "error", required = false) String error,
+            @RequestParam(name = "errMessage", required = false) String errMessage,
+            Model model) {
+        model.addAttribute("errMessage", errMessage);
+        model.addAttribute("error", error);
         return "user/login";
     }
 
