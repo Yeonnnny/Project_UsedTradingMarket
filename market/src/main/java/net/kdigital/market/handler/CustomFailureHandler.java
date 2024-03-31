@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class CustomFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
@@ -19,6 +21,7 @@ public class CustomFailureHandler extends SimpleUrlAuthenticationFailureHandler 
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
 
+        log.info("로그인 실패 {}", exception.getClass());
         String errMsg = "";
 
         if (exception instanceof BadCredentialsException) {

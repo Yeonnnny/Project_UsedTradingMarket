@@ -21,8 +21,9 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // 웹 요청에 대한 접근 권한 설정
         http.authorizeHttpRequests((auth) -> auth.requestMatchers("/",
-                "board/boardList",
+                "/board/boardList",
                 "/user/join",
+                "/user/joinProc",
                 "/user/login",
                 "/script/**",
                 "/img/**").permitAll()
