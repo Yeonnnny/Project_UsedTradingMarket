@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매글 등록</title>
+
+    
 </head>
 <body>
 
@@ -41,9 +43,18 @@
                 <input type="submit" id="saveBtn" value="저장">
 
             </form>
-    
-    
+            
         </div>
+
+        <!-- CK editor -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/translations/ko.js"></script>
+        <script>
+            ClassicEditor.create(document.querySelector("#contents"),{
+                language : "ko",
+                removePlugins:["Heading"]
+            });
+        </script>
     
 </body>
 </html>
