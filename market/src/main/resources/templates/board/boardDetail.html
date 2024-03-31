@@ -6,7 +6,7 @@
     <title>판매 정보</title>
 
     <!-- JQuery -->
-    <script th:src="@{script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
     <script>
         $(function () {
             $("#addCmtBtn").on("click",addCmt);
@@ -97,7 +97,7 @@
             
             <!-- 글 구매는 글 작성자를 제외한 사용자가 보는 경우에 나타나야 함 -->
             <th:block th:unless="${board.memId == #authentication.name}">
-                <a th:href="@{/board/purchase(boardNum=${board.boardNum})}">구매하기</a>
+                <a th:href="@{/board/purchase(boardNum=${board.boardNum}, buyerId=${#authentication.name})}">구매하기</a>
             </th:block>
 
         </div>
