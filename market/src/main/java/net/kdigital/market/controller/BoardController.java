@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.kdigital.market.dto.BoardDTO;
-import net.kdigital.market.dto.SoldoutEnum;
 import net.kdigital.market.service.BoardService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Slf4j
@@ -53,8 +53,8 @@ public class BoardController {
      * @return
      */
     @PostMapping("/boardWrite")
+    @ResponseBody
     public String boardWrite(@ModelAttribute BoardDTO boardDTO) {
-        log.info("{}", boardDTO.toString());
         service.insert(boardDTO);
 
         return "redirect:/board/boardList";
@@ -92,12 +92,13 @@ public class BoardController {
      * @return
      */
     @GetMapping("/purchase")
-    public String getMethodName(@RequestParam(name = "boardNum") Long boardNum,
-            @RequestParam(name = "loginId") String loginId) {
+    public String purchase(@RequestParam(name = "boardNum") Long boardNum,
+            @RequestParam(name = "buyerId") String buyerId) {
+        log.info("==== 구매 요청 in 컨트롤러");
+        log.info("boardNum : {}, buyerId : {}", boardNum, buyerId);
+        service.purchase(boardNum, buyerId);
 
-        service.purchase(boardNum, loginId);
-
-        return "redirect:/boardList";
+        return "redirect:/board/boardList";
     }
 
 }
