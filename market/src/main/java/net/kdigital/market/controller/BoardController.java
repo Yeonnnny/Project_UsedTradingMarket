@@ -14,7 +14,6 @@ import net.kdigital.market.dto.BoardDTO;
 import net.kdigital.market.service.BoardService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Slf4j

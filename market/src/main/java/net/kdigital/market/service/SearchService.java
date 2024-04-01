@@ -24,8 +24,15 @@ public class SearchService {
      * @return
      */
     public List<BoardDTO> selectAllBySearching(String category, String searchWord) {
-
-        List<BoardEntity> entityList = repository.findByCategoryAndTitleContaining(category, searchWord,Sort.by(Sort.Direction.DESC,"boardNum"));
+        
+        List<BoardEntity> entityList = new ArrayList<>();
+        
+        // total인 경우
+        if (category.equals("total")) {
+            entityList= repository.findByTitleContaining(searchWord,Sort.by(Sort.Direction.DESC,"boardNum"));
+        }else{ // 카테고리를 선택한 경우
+            entityList = repository.findByCategoryAndTitleContaining(category, searchWord,Sort.by(Sort.Direction.DESC,"boardNum"));
+        }
 
         List<BoardDTO> dtoList = new ArrayList<>();
 
