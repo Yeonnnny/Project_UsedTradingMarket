@@ -21,7 +21,7 @@
 
             $.ajax({
                 url:"/comment/commentWrite",
-                method:"POST",
+                method:"GET",
                 data:{"boardNum":boardNum, "commentText":commentText, "memId":loginID},
                 success: function(resp){
                     let data = `<tr>
