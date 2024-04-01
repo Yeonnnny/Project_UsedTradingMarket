@@ -5,43 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매글 등록</title>
 
+    <!-- CK editor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/translations/ko.js"></script>
     <!-- JQuery -->
     <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+
     <script>
         $(function() {
-            $("#saveBtn").on("click", save);
+            
+            // CKEditor 초기화 및 인스턴스 생성
+            let ckEditorInstance;
+            ClassicEditor.create(document.querySelector("#contents"), {
+                language: "ko",
+                ckfinder: {
+                uploadUrl: "/image/uploadImage",
+                withCredentials: true
+            }
+            }).then(editor => {
+                // 에디터 인스턴스를 저장
+                ckEditorInstance = editor;
+            }).catch(error => {
+                console.error(error);
+            });
+
+            $("#saveBtn").on("click",  function () {
+                submitVaildation(ckEditorInstance);
+            });
+
         })
 
-        // 유효성 검사 후 post로 보내기
-        function save() {
-            let memId = $("#memId").val();
-            let category = $("#category").val();
-            let title = $("#title").val();
-            let contents = $("#contents").val();
+        function submitVaildation(ckEditorInstance) {
+            // 제목 및 내용 가져오기
+            let title = $("#title").val().trim();
+            let contents = ckEditorInstance.getData().trim();
+            console.log("title : "+title);
+            console.log("contents : "+ contents);
 
-            // 제목 길이 확인 (5글자 이하면 경고창)
-            if (title.trim().length <=5) {
+            // 제목 및 내용 유효성 검사
+            if (title.length <= 5) {
                 alert("제목을 5자 이상 입력해주세요");
                 $("#title").select();
                 return;
             }
-
-            // 내용 길이 확인 (5글자 이하면 경고창)
-            if (title.trim().length <=5) {
+            if (contents.length <= 5) {
                 alert("내용을 5자 이상 입력해주세요");
-                $("#contents").select();
+                ckEditorInstance.focus();
                 return;
             }
 
-            $.ajax({
-                url:"/board/boardWrite",
-                method:"POST",
-                data:{"memId":memId, "title":title, "contents":contents, "category":category}
-            })
-
+            // 유효성 검사 통과되면 submit
+            $("#boardInfo").submit();
         }
-
     </script>
+
 
     
 </head>
@@ -58,7 +75,7 @@
     
         <div class="content">
     
-            <form th:action="@{/board/boardWrite}" method="post">
+            <form th:action="@{/board/boardWrite}" method="post" id="boardInfo">
                 <!-- 수정할 것 -->
                 <input type="hidden" name="memId" th:value="${#authentication.name}">
 
@@ -83,16 +100,6 @@
             </form>
             
         </div>
-
-        <!-- CK editor -->
-        <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/translations/ko.js"></script>
-        <script>
-            ClassicEditor.create(document.querySelector("#contents"),{
-                language : "ko",
-                removePlugins:["Heading"]
-            });
-        </script>
-    
-</body>
+        
+    </body>
 </html>

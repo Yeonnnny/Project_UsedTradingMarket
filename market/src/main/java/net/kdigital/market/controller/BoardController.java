@@ -53,7 +53,6 @@ public class BoardController {
      * @return
      */
     @PostMapping("/boardWrite")
-    @ResponseBody
     public String boardWrite(@ModelAttribute BoardDTO boardDTO) {
         service.insert(boardDTO);
 
