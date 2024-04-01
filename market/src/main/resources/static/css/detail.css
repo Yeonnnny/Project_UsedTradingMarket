@@ -1,0 +1,105 @@
+@charset "UTF-8";
+@import "main.css";
+
+/****************************
+    글쓰기 화면
+****************************/
+
+div.logo{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+div.content td {
+    text-align: left;
+    width: 800px;
+}
+
+
+div.content td input[type="text"] {
+    width: 500px;
+}
+
+div.content td textarea {
+    width: 750px;
+    height: 300px;
+
+}
+
+/* 게시글 좋아요 */
+div.like{
+    width: 1100px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+div.like>#boardLikeBtn{
+    width: 37px;
+    padding-right: 5px;
+}
+
+div.like>#boardLikeBtn:hover{
+    cursor: pointer;
+}
+
+div.like>#boardLikeCount{
+    width: 30px;
+    font-weight: bold;
+}
+
+/****************************
+    글보기 화면
+****************************/
+pre {
+    width: 750px;
+    height: 200px;
+}
+
+
+
+/****************************
+    첨부파일 delete
+****************************/
+
+.attach {   
+    display: flex;
+    align-items: center;
+}
+
+.attach>img{
+    padding-left: 9px;
+    width: 21px;
+}
+.attach>img:hover{
+    cursor: pointer;
+    width: 22.5px;
+}
+
+a#delete, a#prchase{
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+
+/****************************
+    댓글 
+****************************/
+
+
+div.reply-write{
+    width: 1100px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input#cmtText{
+    width: 970px;
+    height: 45px;
+}
+
+

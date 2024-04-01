@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
 
+    <!-- fontawsome 설정 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+
     <!-- JQuery -->
     <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
     <script>
@@ -53,39 +59,45 @@
 </head>
 <body>
 
-    <h2>회원가입</h2>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/img/cat.png}" alt="로고">
+        </a>
+        <h2> 회원가입 </h2>
+    </div>
+    <div class="content">
 
-    <form th:action="@{/user/joinProc}" method="post" id="memInfo">
-        <table>
-            <tr>
-                <th>ID </th>
-                <td>
-                    <input type="text" id="memId" name="memId" placeholder="ID 입력">
-                </td>
-            </tr>
-            <tr>
-                <th>비밀번호 </th>
-                <td>
-                    <input type="password" id="memPw" name="memPw" placeholder="비밀번호 입력">
-                </td>
-            </tr>
-            <tr>
-                <th>이름 </th>
-                <td>
-                    <input type="text" id="memName" name="memName" placeholder="이름 입력">
-                </td>
-            </tr>
-            <tr>
-                <th>전화번호 </th>
-                <td>
-                    <input type="text" id="phone" name="phone" placeholder="ex)010-0000-0000">
-                </td>
-            </tr>
-        </table>
-        
-        <input type="button" id="joinBtn" value="가입">
-        <input type="reset" value="다시 쓰기">
-    </form>
+        <form th:action="@{/user/joinProc}" method="post" id="memInfo">
+            <div class="section pointColor">
+
+                <div class="article">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <input type="text" id="memId" name="memId" placeholder="ID 입력">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="memPw" name="memPw" placeholder="비밀번호 입력">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="memName" name="memName" placeholder="이름 입력">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="text" id="phone" name="phone" placeholder="ex)010-0000-0000">
+                        </li>
+                    </ul>
+                    <div class="btns">
+                        <input type="button" id="joinBtn" class="btn btn-info" value="가입">
+                        <input type="reset" class="btn btn-primary" value="다시 쓰기">
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
     
 </body>
 </html>

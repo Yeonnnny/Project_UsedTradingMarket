@@ -4,39 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
+
+    <!-- fontawsome 설정 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+
 </head> 
 <body>
     <div class="container">
-
         <div class="logo">
             <a th:href="@{/}">
                 <img th:src="@{/img/cat.png}" alt="로고">
             </a>
             <h2>  [로그인] </h2>
         </div>
-        
-        <form th:action="@{/user/loginProc}" method="post">
-            <table>
-                <tr>
-                    <th>ID </th>
-                    <td>
-                        <input type="text" name="memId">
-                    </td>
-                </tr>
-                <tr>
-                    <th>비밀번호 </th>
-                    <td>
-                        <input type="password" name="memPw">
-                    </td>
-                </tr>
-            </table>
-            <th:block th:if="${error}">
-                <div th:text="${errMessage}" style="color: red; font-size: 0.7em; padding-bottom: 2px;"></div>
-            </th:block>
-        
-        <input type="submit" value="LOGIN">
-    </form>
     </div>
+    <div class="content">
+
+        <form th:action="@{/user/loginProc}" method="post">
+            <div class="section pointColor">
+                <div class="article">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <input type="text" name="memId" placeholder="아이디 입력">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" name="memPw" placeholder="비밀번호 입력">
+                        </li>
+                    </ul>
+                    
+                    <th:block th:if="${error}">
+                        <div th:text="${errMessage}" style="color: red; font-size: 0.7em; padding-bottom: 2px;"></div>
+                    </th:block>
+                    <div class="btns">
+                        <input type="submit" class="btn btn-info" value="LOGIN">
+                        <input type="reset" class="btn btn-primary" value="RESET">
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
     
 </body>
 </html>

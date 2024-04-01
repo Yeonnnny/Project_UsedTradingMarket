@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매글 등록</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+
+
     <!-- CK editor -->
     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/translations/ko.js"></script>
@@ -101,7 +105,7 @@
                 <!-- CK editor 태그 제거된 내용 -->
                 <input type="hidden" name="contents" id="contents">
 
-                <input type="button" id="saveBtn" value="저장">
+                <input type="button" id="saveBtn" class="btn btn-info" value="저장">
 
             </form>
             

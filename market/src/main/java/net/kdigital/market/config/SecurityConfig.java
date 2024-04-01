@@ -25,6 +25,7 @@ public class SecurityConfig {
                 "/user/join",
                 "/user/joinProc",
                 "/user/login",
+                "/css/**",
                 "/script/**",
                 "/img/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")

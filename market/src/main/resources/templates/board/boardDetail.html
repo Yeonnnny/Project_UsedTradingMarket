@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매 정보</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+
+
     <!-- JQuery -->
     <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
     <script>
@@ -92,18 +96,18 @@
             </table>
             <!-- 글 삭제 버튼은 글 작성자에게만 나타나야 함 -->
             <th:block th:if="${board.memId == #authentication.name}">
-                <a th:href="@{/board/boardDelete(boardNum=${board.boardNum})}">삭제하기</a>
+                <a th:href="@{/board/boardDelete(boardNum=${board.boardNum})}" id="delete" style="color:red">삭제하기</a>
             </th:block>
             
             <!-- 글 구매는 글 작성자를 제외한 사용자가 보는 경우에 나타나야 함 -->
             <th:block th:unless="${board.memId == #authentication.name}">
-                <a th:href="@{/board/purchase(boardNum=${board.boardNum}, buyerId=${#authentication.name})}">구매하기</a>
+                <a th:href="@{/board/purchase(boardNum=${board.boardNum}, buyerId=${#authentication.name})}" id="purchase">구매하기</a>
             </th:block>
 
         </div>
 
         <div class="comment">
-            <input type="text" id="cmtText"> <input type="button" id="addCmtBtn" value="확인">
+            <input type="text" id="cmtText"> <input type="button" id="addCmtBtn" class="btn btn-info" value="확인">
             
             <table id="cmtTable">
 
