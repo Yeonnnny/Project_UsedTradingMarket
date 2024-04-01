@@ -16,7 +16,7 @@
             
             // CKEditor 초기화 및 인스턴스 생성
             let ckEditorInstance;
-            ClassicEditor.create(document.querySelector("#contents"), {
+            ClassicEditor.create(document.querySelector("#ckeditor"), {
                 language: "ko",
                 ckfinder: {
                 uploadUrl: "/image/uploadImage",
@@ -39,8 +39,11 @@
             // 제목 및 내용 가져오기
             let title = $("#title").val().trim();
             let contents = ckEditorInstance.getData().trim();
-            console.log("title : "+title);
-            console.log("contents : "+ contents);
+            // HTML 태그를 제외한 순수한 텍스트
+            let plainText = contents.replace(/<[^>]+>/g, '');
+
+            // 순수 텍스트를 Db에 저장하기 위해 
+            $("#contents").val(plainText);
 
             // 제목 및 내용 유효성 검사
             if (title.length <= 5) {
@@ -48,7 +51,7 @@
                 $("#title").select();
                 return;
             }
-            if (contents.length <= 5) {
+            if (plainText.length <= 5) {
                 alert("내용을 5자 이상 입력해주세요");
                 ckEditorInstance.focus();
                 return;
@@ -92,8 +95,11 @@
                 </label>
 
                 <label for="contents">
-                    내용 : <textarea name="contents" id="contents" cols="30" rows="10"></textarea>
+                    내용 : <textarea name="ckeditor" id="ckeditor" cols="30" rows="10"></textarea>
                 </label>
+
+                <!-- CK editor 태그 제거된 내용 -->
+                <input type="hidden" name="contents" id="contents">
 
                 <input type="button" id="saveBtn" value="저장">
 
