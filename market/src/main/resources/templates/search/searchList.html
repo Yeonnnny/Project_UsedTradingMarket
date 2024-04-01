@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매 정보 게시판</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/img/cat.png}" alt="로고">
+            </a>
+            <h2> 판매 정보 게시판 </h2>
+        </div>
+
+        <div class="search">
+            <form th:action="@{/search/searchList}">
+                <select name="category" id="category">
+                    <option value="total">total</option>
+                    <option value="clothes">clothes</option>
+                    <option value="shoes">shoes</option>
+                    <option value="bag">bag</option>
+                </select>
+                <input type="text" name="searchWord" id="searchWord">
+                <input type="submit" value="검색">
+            </form>
+        </div>
+
+        <div class="content">
+
+            <span th:if="${#lists.isEmpty(list)}" style="color: red; font-weight: bold;"> <br><br> 검색 결과가 존재하지 않습니다.</span>
+
+            <table th:unless="${#lists.isEmpty(list)}">
+                <tr>
+                    <th>번호</th>
+                    <th>카테고리</th>
+                    <th>제목</th>
+                </tr>
+
+                <tr th:each="board : ${list}">
+                    <td th:text="${board.boardNum}"></a></td>
+                    <td th:text="${board.category}"></td>
+                    <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
+                </tr>
+            </table>
+
+        </div>
+
+
+    </div>
+    
+</body>
+</html>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,9 @@ public class SearchService {
      * @param category
      * @return
      */
-    public List<BoardDTO> selectAllBySearching(String category) {
-        List<BoardEntity> entityList = repository.findByCategoryContaining(category);
+    public List<BoardDTO> selectAllBySearching(String category, String searchWord) {
+
+        List<BoardEntity> entityList = repository.findByCategoryAndTitleContaining(category, searchWord,Sort.by(Sort.Direction.DESC,"boardNum"));
 
         List<BoardDTO> dtoList = new ArrayList<>();
 

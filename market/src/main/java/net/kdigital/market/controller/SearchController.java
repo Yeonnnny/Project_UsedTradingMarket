@@ -1,5 +1,6 @@
 package net.kdigital.market.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.BoardDTO;
+import net.kdigital.market.service.BoardService;
 import net.kdigital.market.service.SearchService;
 
 @Controller
@@ -17,6 +19,7 @@ import net.kdigital.market.service.SearchService;
 @RequestMapping("/search")
 public class SearchController {
     private final SearchService service;
+    private final BoardService boardService;
 
     /**
      * 전달받은 카테고리에 해당하는 게시글 목록 요청
@@ -24,10 +27,23 @@ public class SearchController {
      * @param category
      * @return
      */
-    @GetMapping("/sellingList")
-    public List<BoardDTO> sellingList(@RequestParam(name = "category", defaultValue = "") String category) {
-        List<BoardDTO> dtoList = service.selectAllBySearching(category);
-        return dtoList;
+    @GetMapping("/searchList")
+    public String searchList(@RequestParam(name = "category", defaultValue = "total") String category,
+                            @RequestParam(name = "searchWord", defaultValue = "") String searchWord, 
+                            Model model) {
+        List<BoardDTO> dtoList = new ArrayList<>();
+
+        if (category.equals("total")) {
+            dtoList = boardService.selectAll();
+        }else{
+            dtoList = service.selectAllBySearching(category,searchWord);
+        }
+        
+        model.addAttribute("list", dtoList);
+        model.addAttribute("category", category);
+        model.addAttribute("searchWord", searchWord);
+        
+        return "search/searchList";
     }
 
     /**
