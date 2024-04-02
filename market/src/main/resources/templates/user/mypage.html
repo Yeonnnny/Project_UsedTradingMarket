@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPage</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <!-- <link rel="stylesheet" href="../../static/css/mypage.css"> -->
+
+    
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/img/cat.png}" alt="로고">
+            </a>
+            <h2>[ My Page ]</h2>
+        </div>
+
+        <div class="profile">
+            <!-- <img src="../../static/img/profile.png" alt="고양이 프로필">
+            <div>
+                <h3>abc</h3>
+                <input type="button" id="updateBtn" value="나의 정보 수정하기">
+            </div> -->
+            <img th:src="@{/img/profile.png}" alt="고양이 프로필">
+            <div>
+                <h3 th:text="${#authentication.name}">abc</h3>
+                <input type="button" id="updateBtn" value="나의 정보 수정하기">
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="menu">
+            <ul>
+                <li>
+                    <a class="selected" th:href="@{/user/mypage(memId=${#authentication.name})}">My shop</a>
+                </li>
+                <li>
+                    <a th:href="@{/user/myWishList(memId=${#authentication.name})}">Wishlist</a>
+                </li>
+                <li>
+                    <a th:href="@{/user/myCommentList(memId=${#authentication.name})}">Review</a>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        
+        <div class="content">
+            <div class="result">
+                <span th:if="${#lists.isEmpty(list)}" style="color: rgb(75, 73, 73); font-weight: bold;"> <br><br> 판매 정보가 존재하지 않습니다.</span>
+                
+                <table th:unless="${#lists.isEmpty(list)}">
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                    </tr>
+                
+                    <tr th:each="board : ${list}">
+                        <td th:text="${board.boardNum}"></a></td>
+                        <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
+                        <td th:text="${board.memId}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        document.querySelectorAll('.menu a').forEach(item => {
+            item.addEventListener('click', event => {
+                // 이전에 선택된 링크에서 'selected' 클래스 제거
+                document.querySelector('.menu a.selected').classList.remove('selected');
+                // 현재 클릭된 링크에 'selected' 클래스 추가
+                item.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+
+</html>

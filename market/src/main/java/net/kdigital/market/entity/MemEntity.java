@@ -52,6 +52,10 @@ public class MemEntity {
     @OneToMany(mappedBy = "memEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderBy("board_num")
     List<BoardEntity> boardEntity = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "memEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("comment_num")
+    List<CommentEntity> commentEntity = new ArrayList<>();
 
     public static MemEntity toEntity(MemDTO memDTO){
         return MemEntity.builder()

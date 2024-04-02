@@ -23,23 +23,28 @@
 
         <div>
             <ul>
-                <!-- 인증하지 않은 사람이 가능한 메뉴 -->
+                <!-- 회원 -->
                 <li>
                     <a sec:authorize="isAnonymous()" th:href="@{/user/join}">회원가입</a>
                 </li>
                 <li>
                     <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                 </li>
-                <!-- 인증과 관계 없음 -->
-                <li>
-                    <a th:href="@{/board/boardList}">판매정보 게시판</a>
-                </li>
-                <!-- 인증된 사람만 가능한 메뉴 -->
                 <li>
                     <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
                 </li>
+                
                 <li>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/search/searchList}">판매상품 검색</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/user/mypage(memId=${#authentication.name})}">마이페이지</a>
+                </li>
+
+                <!-- 상품 -->
+                <li>
+                    <a th:href="@{/board/boardList}">판매 정보 게시판</a>
+                </li>
+                
+                <li>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/search/searchList}">판매 상품 검색</a>
                 </li>
             </ul>
         </div>

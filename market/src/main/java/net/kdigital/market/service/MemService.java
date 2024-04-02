@@ -1,17 +1,25 @@
 package net.kdigital.market.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import net.kdigital.market.dto.BoardDTO;
 import net.kdigital.market.dto.MemDTO;
+import net.kdigital.market.entity.BoardEntity;
 import net.kdigital.market.entity.MemEntity;
+import net.kdigital.market.repository.BoardRepository;
 import net.kdigital.market.repository.MemRepository;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class MemService {
     private final MemRepository repository;
+    private final BoardRepository boardRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
@@ -40,6 +48,28 @@ public class UserService {
 
         return true;
 
+    }
+
+    /**
+     * 전달 받은 멤버 아이디에 해당하는 회원이 판매중인 상품을 리스트로 반환하는 함수
+     * @param memId
+     * @return
+     */
+    public List<BoardDTO> myBoardList(String memId) {
+        Optional<MemEntity> entity = repository.findById(memId);
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+
+        if (entity.isPresent()) {
+            MemEntity memEntity= entity.get();
+            List<BoardEntity> boardEntityList = boardRepository.findAllByMemEntityOrderByBoardNumDesc(memEntity);
+            
+            boardEntityList.forEach((e)->{
+                boardDTOList.add(BoardDTO.toDTO(e, memId));
+            });
+
+        }
+
+        return boardDTOList;
     }
 
 }
