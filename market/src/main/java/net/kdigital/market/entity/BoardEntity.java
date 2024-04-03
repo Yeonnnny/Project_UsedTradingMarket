@@ -1,9 +1,12 @@
 package net.kdigital.market.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +16,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import net.kdigital.market.dto.BoardDTO;
@@ -58,11 +63,16 @@ public class BoardEntity {
 
     private String category;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) 
     private SoldoutEnum soldout;
 
     @Column(name = "buyerId")
     private String buyerId;
+
+    // 자식
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("comment_num")
+    List<CommentEntity> commentEntity = new ArrayList<>();
 
     public static BoardEntity toEntity(BoardDTO boardDTO, MemEntity memEntity) {
         return BoardEntity.builder()

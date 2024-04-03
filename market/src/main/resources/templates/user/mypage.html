@@ -34,13 +34,33 @@
                 }
             })
         }
+
         // 나의 위시리스트
         function myWish() {
-            
+            let memId = $("#memId").val();
+            $.ajax({
+                url: "/user/myWishList",
+                type: "GET",
+                data: { "memId": memId },
+                success: function (list) {
+                    console.log(list);
+                    $("#result").replaceWith(list);
+                }
+            })
         }
+
         // 자신이 작성한 코멘트 리스트 (번호)
         function myComment() {
-            
+            let memId = $("#memId").val();
+            $.ajax({
+                url: "/user/myCommentList",
+                type: "GET",
+                data: { "memId": memId },
+                success: function (list) {
+                    console.log(list);
+                    $("#result").replaceWith(list);
+                }
+            })
         }
         function init() {
             myBoard();
@@ -84,7 +104,7 @@
                     <a id="wish">Wishlist</a>
                 </li>
                 <li>
-                    <a id="comment">Comment</a>
+                    <a id="comment">Comment를 작성한 상품</a>
                 </li>
             </ul>
         </div>

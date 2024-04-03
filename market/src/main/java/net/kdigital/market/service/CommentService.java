@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.CommentDTO;
+import net.kdigital.market.entity.BoardEntity;
 import net.kdigital.market.entity.CommentEntity;
 import net.kdigital.market.repository.BoardRepository;
 import net.kdigital.market.repository.CommentRepository;
@@ -26,10 +27,12 @@ public class CommentService {
      * @return
      */
     public List<CommentDTO> selectAll(Long boardNum) {
-        List<CommentEntity> entityList = repository.findAll();
+        BoardEntity boardEntity = boardRepository.findById(boardNum).get();
+
+        List<CommentEntity> CommentEntityList = repository.findAllByBoardEntityOrderByCommentNumDesc(boardEntity);
         List<CommentDTO> dtoList = new ArrayList<>();
 
-        entityList.forEach((entity) -> {
+        CommentEntityList.forEach((entity) -> {
             dtoList.add(CommentDTO.toDTO(entity, boardNum, entity.getMemEntity().getMemId()));
         });
 

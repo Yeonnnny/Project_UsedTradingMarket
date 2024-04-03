@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.kdigital.market.dto.BoardDTO;
+import net.kdigital.market.dto.CommentDTO;
 import net.kdigital.market.dto.MemDTO;
 import net.kdigital.market.service.MemService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,10 +77,43 @@ public class MemController {
         return "user/mypage";
     }
 
+
+    /**
+     * ajax로 요청한 나의 상품 목록 반환해서 thymeleaf에 적용
+     * @param memId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/user/myBoardList", method = {RequestMethod.GET})
     public String myBoardList(@RequestParam(name = "memId") String memId, Model model) {
-        log.info("여기 마이샵리스트 컨트롤러야");
         List<BoardDTO> list = service.myBoardList(memId);
+        model.addAttribute("list", list);
+        return "/user/mypage::#result";
+    }
+
+    /**
+     * ajax로 요청한 나의 위시 리스트 반환해서 thymeleaf에 적용
+     * @param memId
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/user/myWishList", method = {RequestMethod.GET})
+    public String myWishList(@RequestParam(name = "memId") String memId, Model model) {
+        List<BoardDTO> list = service.myWishList(memId);
+
+        model.addAttribute("list", list);
+        return "/user/mypage::#result";
+    }
+
+    /**
+     * ajax로 요청한 나의 코멘트가 작성된 게시글 리스트 반환해서 thymeleaf에 적용
+     * @param memId
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/user/myCommentList", method = {RequestMethod.GET})
+    public String myCommentList(@RequestParam(name = "memId") String memId, Model model) {
+        List<BoardDTO> list = service.myCommentList(memId);
         model.addAttribute("list", list);
         return "/user/mypage::#result";
     }

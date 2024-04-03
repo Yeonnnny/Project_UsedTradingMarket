@@ -41,7 +41,7 @@ public class CommentEntity {
     // FK
     @ManyToOne
     @JoinColumn(name = "board_num")
-    private BoardEntity boardEntity;
+    private BoardEntity boardEntity; 
 
     // FK
     @ManyToOne
