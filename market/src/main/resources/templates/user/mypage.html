@@ -118,20 +118,19 @@
                 <table th:unless="${#lists.isEmpty(list)}">
                     <tr>
                         <th>번호</th>
-                        <th>제목</th>
+                        <th colspan="2">상품</th>
                         <th>작성자</th>
                         <th>작성일</th>
                     </tr>
                 
                     <tr th:each="board : ${list}">
-                        <td th:text="${board.boardNum}"></a></td>
+                        <td th:text="${board.boardNum}"></td>
+                        <td id="product_img"><img th:src="@{/img/product.png}" alt="상품이미지"></td>
                         <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
                         <td th:text="${board.memId}"></td>
                         <td th:text="${board.inputDate}"></td>
                     </tr>
                 </table>
-
-
             </div>
         </div>
 

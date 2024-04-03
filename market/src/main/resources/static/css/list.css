@@ -4,6 +4,7 @@
 div.content {
     width: 1100px;
     margin: 0 auto;
+    margin-bottom: 70px;
 }
 
 /* **************************************
@@ -108,3 +109,14 @@ div.search {
     margin-top: 20px; /* 위쪽 여백 추가 */
     margin-bottom: 20px; /* 아래쪽 여백 추가 */
 }
+
+
+
+/*****************************
+    상품이미지
+*****************************/
+td#product_img>img{
+    width: 140px;
+    height: 80px;
+}
+

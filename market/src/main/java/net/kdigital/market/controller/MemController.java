@@ -105,7 +105,7 @@ public class MemController {
     }
 
     /**
-     * ajax로 요청한 나의 코멘트가 작성된 게시글 리스트 반환해서 thymeleaf에 적용
+     * ajax로 요청한 내가 구매한 게시글 리스트 반환해서 thymeleaf에 적용
      * 
      * @param memId
      * @param model

@@ -109,7 +109,16 @@ input#updateBtn:hover{
 /********************************
     리스트 부분
 ********************************/
+div.content{
+    margin-bottom: 70px;
+}
+
 
 table{
     width: 1000px;
+}
+
+td#product_img>img {
+    width: 140px;
+    height: 80px;
 }
