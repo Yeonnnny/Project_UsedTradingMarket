@@ -14,14 +14,13 @@ import net.kdigital.market.service.MemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user")
 public class MemController {
     private final MemService service;
 
@@ -30,7 +29,7 @@ public class MemController {
      * 
      * @return
      */
-    @GetMapping("/join")
+    @GetMapping("/user/join")
     public String join() {
         return "user/join";
     }
@@ -41,7 +40,7 @@ public class MemController {
      * @param memDTO
      * @return
      */
-    @PostMapping("/joinProc")
+    @PostMapping("/user/joinProc")
     public String joinProc(@ModelAttribute MemDTO memDTO) {
         log.info("{}", memDTO.toString());
 
@@ -58,7 +57,7 @@ public class MemController {
      * 
      * @return
      */
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "errMessage", required = false) String errMessage,
             Model model) {
@@ -72,31 +71,20 @@ public class MemController {
      * 마이페이지 요청
      * @return
      */
-    @GetMapping("/mypage")
-    public String mypage(@RequestParam(name = "memId") String memId, Model model) {
-        List<BoardDTO> list =service.myBoardList(memId);
-        model.addAttribute("list", list);
+    @GetMapping("/user/mypage")
+    public String mypage() {
         return "user/mypage";
     }
 
-
-    @GetMapping("/myWishList")
-    public String myWishList(@RequestParam (name = "memId") String memId, RedirectAttributes rttr) {
-        List<BoardDTO> list = new ArrayList<>();
-        
-        rttr.addAttribute("list", list);
-
-        return "redirect:/user/mypage";
+    @RequestMapping(value = "/user/myBoardList", method = {RequestMethod.GET})
+    public String myBoardList(@RequestParam(name = "memId") String memId, Model model) {
+        log.info("여기 마이샵리스트 컨트롤러야");
+        List<BoardDTO> list = service.myBoardList(memId);
+        model.addAttribute("list", list);
+        return "/user/mypage::#result";
     }
 
-    @GetMapping("/myCommentList")
-    public String myCommentList(@RequestParam (name = "memId") String memId, RedirectAttributes rttr) {
-        List<BoardDTO> list = new ArrayList<>();
-
-        rttr.addAttribute("list", list);
-
-        return "redirect:/user/mypage";
-    }
+    
     
     
 

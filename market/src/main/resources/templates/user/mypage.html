@@ -9,11 +9,47 @@
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
     <!-- <link rel="stylesheet" href="../../static/css/mypage.css"> -->
-
     
+    <!-- JQuery -->
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function(){
+            $("#myBoard").on("click",myBoard);
+            $("#wish").on("click",myWish);
+            $("#comment").on("click",myComment);
+            init();
+        })
+
+        // 내가 판매하는 상품 리스트 출력
+        function myBoard() {
+            let memId = $("#memId").val();
+            console.log(memId);
+            $.ajax({
+                url: "/user/myBoardList",
+                type:"GET",
+                data: { "memId": memId },
+                success: function (list) {
+                    console.log(list);
+                    $("#result").replaceWith(list);
+                }
+            })
+        }
+        // 나의 위시리스트
+        function myWish() {
+            
+        }
+        // 자신이 작성한 코멘트 리스트 (번호)
+        function myComment() {
+            
+        }
+        function init() {
+            myBoard();
+        }
+    </script>
 </head>
 
 <body>
+    <input type="hidden" id="memId" th:value="${#authentication.name}">
 
     <div class="container">
 
@@ -42,35 +78,40 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a class="selected" th:href="@{/user/mypage(memId=${#authentication.name})}">My shop</a>
+                    <a class="selected" id="myBoard">My shop</a>
                 </li>
                 <li>
-                    <a th:href="@{/user/myWishList(memId=${#authentication.name})}">Wishlist</a>
+                    <a id="wish">Wishlist</a>
                 </li>
                 <li>
-                    <a th:href="@{/user/myCommentList(memId=${#authentication.name})}">Review</a>
+                    <a id="comment">Comment</a>
                 </li>
             </ul>
         </div>
         <hr>
         
         <div class="content">
-            <div class="result">
-                <span th:if="${#lists.isEmpty(list)}" style="color: rgb(75, 73, 73); font-weight: bold;"> <br><br> 판매 정보가 존재하지 않습니다.</span>
+            <div id="result">
+
+                <span th:if="${#lists.isEmpty(list)}" style="color: rgb(75, 73, 73); font-weight: bold;"> <br><br>정보가 존재하지 않습니다.</span>
                 
                 <table th:unless="${#lists.isEmpty(list)}">
                     <tr>
                         <th>번호</th>
                         <th>제목</th>
                         <th>작성자</th>
+                        <th>작성일</th>
                     </tr>
                 
                     <tr th:each="board : ${list}">
                         <td th:text="${board.boardNum}"></a></td>
                         <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
                         <td th:text="${board.memId}"></td>
+                        <td th:text="${board.inputDate}"></td>
                     </tr>
                 </table>
+
+
             </div>
         </div>
 
