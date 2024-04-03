@@ -43,6 +43,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
      * @param memId
      * @return
      */
-    List<BoardEntity> findById(String memId);
+    List<BoardEntity> findByBuyerId(String memId);
 
 }

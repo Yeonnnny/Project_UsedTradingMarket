@@ -114,7 +114,7 @@ public class MemService {
      */
     public List<BoardDTO> myPurchasedList(String memId) {
 
-        List<BoardEntity> boardEntityList = boardRepository.findById(memId);
+        List<BoardEntity> boardEntityList = boardRepository.findByBuyerId(memId);
 
         List<BoardDTO> boardDTOList = new ArrayList<>();
 
