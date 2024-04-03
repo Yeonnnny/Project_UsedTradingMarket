@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.BoardDTO;
-import net.kdigital.market.dto.CommentDTO;
 import net.kdigital.market.dto.MemDTO;
 import net.kdigital.market.entity.BoardEntity;
 import net.kdigital.market.entity.CommentEntity;
@@ -58,6 +57,7 @@ public class MemService {
 
     /**
      * 전달 받은 멤버 아이디에 해당하는 회원이 판매중인 상품을 리스트로 반환하는 함수
+     * 
      * @param memId
      * @return
      */
@@ -66,10 +66,10 @@ public class MemService {
         List<BoardDTO> boardDTOList = new ArrayList<>();
 
         if (entity.isPresent()) {
-            MemEntity memEntity= entity.get();
+            MemEntity memEntity = entity.get();
             List<BoardEntity> boardEntityList = boardRepository.findAllByMemEntityOrderByBoardNumDesc(memEntity);
-            
-            boardEntityList.forEach((e)->{
+
+            boardEntityList.forEach((e) -> {
                 boardDTOList.add(BoardDTO.toDTO(e, memId));
             });
         }
@@ -80,22 +80,22 @@ public class MemService {
         return null;
     }
 
-
     /**
      * 전달받은 회원 아이디가 코멘트를 작성한 게시글 리스트 반환
+     * 
      * @param memId
      * @return
      */
     public List<BoardDTO> myCommentList(String memId) {
-        
+
         // memId에 해당하는 모든 comment entity를 list로 가져옴
         MemEntity memEntity = repository.findById(memId).get();
         List<CommentEntity> commentEntityList = commentRepository.findAllByMemEntityOrderByCommentNumDesc(memEntity);
-        
+
         // memId가 작성한 코멘트가 담긴 게시글 DTO를 담을 변수
         List<BoardDTO> dtoList = new ArrayList<>();
 
-        commentEntityList.forEach((entity)->{
+        commentEntityList.forEach((entity) -> {
             dtoList.add(BoardDTO.toDTO(entity.getBoardEntity(), memId));
         });
 
@@ -104,6 +104,25 @@ public class MemService {
 
         return new ArrayList<>(setList);
 
+    }
+
+    /**
+     * 전달받은 회원이 구매한 상품 게시글 DTO 리스트 반환
+     * 
+     * @param memId
+     * @return
+     */
+    public List<BoardDTO> myPurchasedList(String memId) {
+
+        List<BoardEntity> boardEntityList = boardRepository.findById(memId);
+
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+
+        boardEntityList.forEach((entity) -> {
+            boardDTOList.add(BoardDTO.toDTO(entity, memId));
+        });
+
+        return boardDTOList;
     }
 
 }
