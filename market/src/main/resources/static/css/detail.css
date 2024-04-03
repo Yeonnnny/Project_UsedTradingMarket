@@ -57,7 +57,9 @@ pre {
     height: 200px;
 }
 
-
+tr#tr_content{
+    height: 170px;
+}
 
 /****************************
     첨부파일 delete
@@ -77,20 +79,34 @@ pre {
     width: 22.5px;
 }
 
-a#delete, a#prchase{
-    padding: 20px;
-    margin-top: 30px;
-    margin-bottom: 40px;
+
+
+/*************************
+    버튼 메뉴
+**************************/
+div.menu{
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
+a#purchase{
+    padding: 0.375rem 0.75rem;
+}
 
 /****************************
     댓글 
 ****************************/
+div.comment{
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+div.cmtTable{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
-
-div.reply-write{
-    width: 1100px;
+div.cmt-write{
+    width: 1000px;
     margin: 20px auto;
     display: flex;
     justify-content: space-between;
@@ -98,8 +114,9 @@ div.reply-write{
 }
 
 input#cmtText{
-    width: 970px;
+    width: 910px;
     height: 45px;
 }
+
 
 

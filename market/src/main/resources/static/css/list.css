@@ -16,7 +16,7 @@ div.head {
 }
 
 div.search {
-    width: 520px;
+    width: 550px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -25,15 +25,15 @@ div.search {
 
 select {
     width: 130px;
-    height: 43px;
+    height: 38px;
     border: 0;
     outline: 1px solid rgb(54,55,55);
     border-radius: 8px;
 }
 
 input[type="text"] {
-    width: 270px;
-    height: 42px;
+    width: 300px;
+    height: 37px;
     border: 1px solid rgb(54, 55, 55);
     border-radius: 8px;
 }
@@ -42,11 +42,17 @@ input[type="text"] {
     글쓰기 버튼
 **************************************** */
 
-div.write {
-    margin-top: 15px;
-    text-align: right;
+div.regist {
+    width: 100px;
+    margin: 15px;
+    margin-right: 970px;
+    text-align: left;
 }
 
+div.regist>a{
+    color: white;
+
+}
 
 /* **************************************
     페이지 네비게이션
@@ -84,4 +90,21 @@ nav.pagination {
 .navi{
     font-size: 1.5em;
     width: 10px;
+}
+
+/********************************************/
+
+
+/****************************
+    검색 박스
+****************************/
+div.search {
+    width: 520px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-left: 55px;
+    margin-top: 20px; /* 위쪽 여백 추가 */
+    margin-bottom: 20px; /* 아래쪽 여백 추가 */
 }

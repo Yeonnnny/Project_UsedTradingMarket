@@ -86,7 +86,7 @@
                 <!-- 수정할 것 -->
                 <input type="hidden" name="memId" th:value="${#authentication.name}">
 
-                <label for="category">
+                <label for="category" class="category">
                     카테고리 : <select name="category" id="category">
                                     <option value="clothes">옷</option>
                                     <option value="shoes">신발</option>
@@ -94,11 +94,11 @@
                                 </select>
                 </label>
 
-                <label for="title">
+                <label for="title" class="title">
                     제목 : <input type="text" name="title" id="title">
                 </label>
 
-                <label for="contents">
+                <label for="contents" class="contents">
                     내용 : <textarea name="ckeditor" id="ckeditor" cols="30" rows="10"></textarea>
                 </label>
 

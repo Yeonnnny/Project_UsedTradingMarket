@@ -94,7 +94,7 @@ textarea:focus {
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
+    color: #fff;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
@@ -118,14 +118,14 @@ textarea:focus {
 
 .btn-secondary {
     color: #fff;
-    background-color: #393e43;
-    border-color: #393e43;
+    background-color: #7a9bcb;
+    border-color: #7a9bcb;
 }
 
 .btn-info {
     color: #fff;
-    background-color: #2a2628;
-    border-color: #2a2628;
+    background-color: #5c595a;
+    border-color: #5c595a;
 }
 
 .btn-danger {

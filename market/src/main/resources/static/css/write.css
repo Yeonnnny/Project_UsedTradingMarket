@@ -4,23 +4,45 @@
 /****************************
     글쓰기 화면
 ****************************/
-div.content td {
+
+
+div.content{
+    width: 1000px;
+    margin-left: 60px;
+}
+.content {
+    position: fixed;
+    top: 48%; /* 상단에서 50% 떨어진 위치로 지정 */
+    left: 50%; /* 왼쪽에서 50% 떨어진 위치로 지정 */
+    transform: translate(-50%, -50%); /* 요소를 가로 및 세로 방향으로 -50%만큼 이동하여 중앙에 정렬 */
+    width: 900px; /* 원하는 너비로 설정 */
+    max-width: 1000px; /* 최대 너비 설정 */
+    background-color: rgb(214, 213, 213); /* 배경색 지정 */
+    padding: 20px; /* 내부 여백 설정 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 설정 */
+}
+
+
+label.category,
+label.title,
+label.contents{
+    display: block;
+    margin-top: 20px;
     text-align: left;
-    width: 800px;
 }
 
-
-div.content td input[type="text"] {
+input#title{
     width: 500px;
-
+    height: 30px;
 }
 
-div.content td textarea {
-    width: 750px;
-    height: 300px;
 
+/* CKEditor 높이 조절 */
+.ck-editor__editable {
+    margin-top: 8px;
+    min-height: 500px; /* 높이 조절 */
+    max-height: 500px; /* 높이 조절 */
 }
-
 /****************************
     첨부파일 delete
 ****************************/
@@ -40,3 +62,8 @@ div.content td textarea {
     cursor: pointer;
     width: 22.5px;
 }
+
+input#saveBtn{
+    margin-top: 20px;
+}
+

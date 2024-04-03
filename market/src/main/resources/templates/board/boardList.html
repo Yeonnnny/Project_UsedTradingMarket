@@ -22,12 +22,12 @@
             <h2> 판매 정보 게시판 </h2>
         </div>
 
-        <div class="regist">
+        <div class="regist btn btn-info" >
             <a th:href="@{/board/boardWrite}">판매글 등록</a>
         </div>
-
+        
         <div class="content">
-
+            
             <span th:if="${#lists.isEmpty(list)}" style="color: red; font-weight: bold;"> <br><br> 판매 정보가 존재하지 않습니다.</span>
 
             <table th:unless="${#lists.isEmpty(list)}">
