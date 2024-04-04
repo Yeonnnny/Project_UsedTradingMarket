@@ -107,13 +107,13 @@ public class MemController {
     /**
      * ajax로 요청한 내가 구매한 게시글 리스트 반환해서 thymeleaf에 적용
      * 
-     * @param memId
+     * @param buyerId
      * @param model
      * @return
      */
     @RequestMapping(value = "/user/myPurchasedList", method = { RequestMethod.GET })
-    public String myPurchasedList(@RequestParam(name = "memId") String memId, Model model) {
-        List<BoardDTO> list = service.myPurchasedList(memId);
+    public String myPurchasedList(@RequestParam(name = "memId") String buyerId, Model model) {
+        List<BoardDTO> list = service.myPurchasedList(buyerId);
         model.addAttribute("list", list);
         return "/user/mypage::#result";
     }

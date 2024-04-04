@@ -109,17 +109,17 @@ public class MemService {
     /**
      * 전달받은 회원이 구매한 상품 게시글 DTO 리스트 반환
      * 
-     * @param memId
+     * @param buyerId
      * @return
      */
-    public List<BoardDTO> myPurchasedList(String memId) {
+    public List<BoardDTO> myPurchasedList(String buyerId) {
 
-        List<BoardEntity> boardEntityList = boardRepository.findByBuyerId(memId);
+        List<BoardEntity> boardEntityList = boardRepository.findByBuyerId(buyerId);
 
         List<BoardDTO> boardDTOList = new ArrayList<>();
 
         boardEntityList.forEach((entity) -> {
-            boardDTOList.add(BoardDTO.toDTO(entity, memId));
+            boardDTOList.add(BoardDTO.toDTO(entity, entity.getMemEntity().getMemId()));
         });
 
         return boardDTOList;
