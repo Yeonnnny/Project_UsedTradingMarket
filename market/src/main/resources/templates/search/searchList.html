@@ -18,60 +18,30 @@
             init();
         });
         
+        function listByCategory() {
+            let category = $("#category").val();
+            let searchWord = $("#searchWord").val();
+            console.log("ajax실행 - ",category,"-",searchWord);
+            $.ajax({
+                url:"/search/searchByCategory",
+                type:"GET",
+                data :{"category":category, "searchWord":searchWord},
+                success : function (list) {
+                    $("#result").replaceWith(list); 
+                }
+            });
+        }
+
         // 모든 결과 출력
         function init() {
             $.ajax({
                 url: "/search/searchByCategory",
-                method: "GET",
+                type: "GET",
                 data: { "category": "total", "searchWord": "" },
-                success: function (resp) {
-                    console.log(resp);
-                    let data = `<tr>
-                                    <th>번호</th>
-                                    <th>카테고리</th>
-                                    <th>제목</th>
-                                </tr>`;
-                    for (let i = 0; i < resp.length; i++) {
-                        data += `
-                            <tr>
-                                <td>${resp[i].boardNum}</td>
-                                <td>${resp[i].category}</td>
-                                <td>${resp[i].title}</td>
-                            </tr>`;
-                    }
-                    $("#listTable").html(data);
+                success: function (list) {
+                    $("#result").replaceWith(list);
                 }
-            })
-        }
-
-        function listByCategory() {
-            let category = $("#category").val();
-            console.log(category);
-            let searchWord = $("#searchWord").val();
-            console.log(searchWord);
-
-            $.ajax({
-                url:"/search/searchByCategory",
-                method:"GET",
-                data :{"category":category, "searchWord":searchWord},
-                success : function (resp) {
-                    console.log(resp)
-                    let data = `<tr>
-                                    <th>번호</th>
-                                    <th>카테고리</th>
-                                    <th>제목</th>
-                                </tr>`;
-                    for (let i = 0; i < resp.length; i++) {
-                        data+=`
-                            <tr>
-                                <td>${resp[i].boardNum}</td>
-                                <td>${resp[i].category}</td>
-                                <td>${resp[i].title}</td>
-                            </tr>`;
-                    }
-                    $("#listTable").html(data);
-                }
-            })
+            });
         }
     </script>
 
@@ -99,11 +69,25 @@
             </form>
         </div>
 
-        <div class="content">
-            <table  id="listTable">
-
-            </table>
-
+        <div class="content" >
+            
+            <div id="result">
+                <span th:if="${#lists.isEmpty(list)}" style="color: rgb(72, 70, 70); font-weight: bold;"> <br><br> 정보가 존재하지 않습니다.</span>
+                
+                <table th:unless="${#lists.isEmpty(list)}">
+                    <tr>
+                        <th>번호</th>
+                        <th>카테고리</th>
+                        <th>제목</th>
+                    </tr>
+                    <tr th:each="board : ${list}">
+                        <td th:text="${board.boardNum}"></td>
+                        <td th:text="${board.category}"></td>
+                        <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
+                    </tr>
+                </table>
+            </div>
+                
         </div>
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.kdigital.market.dto.BoardDTO;
+import net.kdigital.market.dto.SoldoutEnum;
 import net.kdigital.market.entity.BoardEntity;
 import net.kdigital.market.repository.BoardRepository;
 
@@ -29,9 +30,10 @@ public class SearchService {
         
         // total인 경우
         if (category.equals("total")) {
-            entityList= repository.findByTitleContaining(searchWord,Sort.by(Sort.Direction.DESC,"boardNum"));
+            entityList= repository.findByTitleContainingAndSoldout(searchWord,SoldoutEnum.N,Sort.by(Sort.Direction.DESC,"boardNum"));
         }else{ // 카테고리를 선택한 경우
-            entityList = repository.findByCategoryAndTitleContaining(category, searchWord,Sort.by(Sort.Direction.DESC,"boardNum"));
+            entityList = repository.findByCategoryAndTitleContainingAndSoldout(category, searchWord,
+                    SoldoutEnum.N,Sort.by(Sort.Direction.DESC,"boardNum"));
         }
 
         List<BoardDTO> dtoList = new ArrayList<>();
