@@ -52,6 +52,7 @@ div.regist {
 
 div.regist>a{
     color: white;
+    text-decoration: none;
 
 }
 
@@ -120,3 +121,6 @@ td#product_img>img{
     height: 80px;
 }
 
+a{
+    text-decoration: underline;
+}

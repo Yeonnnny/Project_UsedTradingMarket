@@ -4,24 +4,28 @@
 /****************************
     글쓰기 화면
 ****************************/
-
+ 
 
 div.content{
     width: 1000px;
     margin-left: 60px;
 }
-.content {
-    position: fixed;
-    top: 48%; /* 상단에서 50% 떨어진 위치로 지정 */
-    left: 50%; /* 왼쪽에서 50% 떨어진 위치로 지정 */
-    transform: translate(-50%, -50%); /* 요소를 가로 및 세로 방향으로 -50%만큼 이동하여 중앙에 정렬 */
-    width: 900px; /* 원하는 너비로 설정 */
-    max-width: 1000px; /* 최대 너비 설정 */
-    background-color: rgb(214, 213, 213); /* 배경색 지정 */
-    padding: 20px; /* 내부 여백 설정 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 설정 */
-}
 
+
+.content {
+    margin: 0 auto;
+    /* 위쪽과 아래쪽에 18%의 여백을 주고, 좌우는 자동으로 정렬 */
+    width: 900px;
+    /* 원하는 너비로 설정 */
+    max-width: 1000px;
+    /* 최대 너비 설정 */
+    background-color: rgb(214, 213, 213);
+    /* 배경색 지정 */
+    padding: 20px;
+    /* 내부 여백 설정 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* 그림자 효과 설정 */
+}
 
 label.category,
 label.title,
