@@ -29,7 +29,6 @@
                 type:"GET",
                 data: { "memId": memId },
                 success: function (list) {
-                    console.log(list);
                     $("#result").replaceWith(list);
                 }
             })
@@ -43,7 +42,6 @@
                 type: "GET",
                 data: { "memId": memId },
                 success: function (list) {
-                    console.log(list);
                     $("#result").replaceWith(list);
                 }
             })
@@ -57,7 +55,6 @@
                 type: "GET",
                 data: { "memId": memId },
                 success: function (list) {
-                    console.log(list);
                     $("#result").replaceWith(list);
                 }
             })
@@ -77,7 +74,7 @@
             <a th:href="@{/}">
                 <img th:src="@{/img/cat.png}" alt="로고">
             </a>
-            <h2>[ My Page ]</h2>
+            <h2>[ [[${#authentication.name}]]'s Page ]</h2>
         </div>
 
         <div class="profile">
@@ -120,6 +117,7 @@
                         <th>번호</th>
                         <th colspan="2">상품</th>
                         <th>작성자</th>
+                        <th>구매자</th>
                         <th>작성일</th>
                     </tr>
                 
@@ -128,6 +126,7 @@
                         <td id="product_img"><img th:src="@{/img/product.png}" alt="상품이미지"></td>
                         <td><a th:href="@{/board/boardDetail(boardNum=${board.boardNum})}" th:text="${board.title}"></a></td>
                         <td th:text="${board.memId}"></td>
+                        <td th:text="${board.buyerId}"></td>
                         <td th:text="${board.inputDate}"></td>
                     </tr>
                 </table>
