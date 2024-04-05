@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -24,12 +26,12 @@ public class BoardService {
     private final MemRepository memRepository;
 
     /**
-     * 현재 판매중(soldout=false)인 상품들만 반환하는 함수
+     * 최신 날짜순으로 현재 판매중(soldout=false)인 상품들을 리스트로 반환하는 함수
      * 
      * @return
      */
     public List<BoardDTO> selectAll() {
-        List<BoardEntity> entiyList = repository.findAll();
+        List<BoardEntity> entiyList = repository.findAll(Sort.by(Direction.DESC, "inputDate"));
 
         List<BoardDTO> dtoList = new ArrayList<>();
 
