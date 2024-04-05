@@ -43,11 +43,11 @@
             // 제목 및 내용 가져오기
             let title = $("#title").val().trim();
             let contents = ckEditorInstance.getData().trim();
-            // HTML 태그를 제외한 순수한 텍스트
-            let plainText = contents.replace(/<[^>]+>/g, '');
+            // DB에 저장하기 위해 CK editor에 값 넣기
+            $("#contents").val(contents);
 
-            // 순수 텍스트를 Db에 저장하기 위해 
-            $("#contents").val(plainText);
+            // 유효성검사를 위해 HTML 태그를 제외한 순수한 텍스트 검출(정규표현식)
+            let plainText = contents.replace(/<[^>]+>/g, '');
 
             // 제목 및 내용 유효성 검사
             if (title.length <= 5) {
