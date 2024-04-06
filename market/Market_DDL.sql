@@ -29,6 +29,20 @@ create table market_board(
 );
 create sequence market_board_seq;
 
+-- contents의 타입을 varchar2-> CLOB으로 변경
+-- 1. 새로운 CLOB 타입의 컬럼 추가
+ALTER TABLE market_board ADD (new_contents CLOB);
+
+-- 2. 기존 컬럼의 데이터를 새로운 컬럼으로 복사
+UPDATE market_board SET new_contents = contents;
+
+-- 3. 기존 컬럼 삭제 또는 비활성화
+ALTER TABLE market_board DROP COLUMN contents;
+
+-- 3-1. 기존 컬럼 비활성화
+ALTER TABLE market_board RENAME COLUMN new_contents TO contents;
+
+
 select * from market_board;
 
 

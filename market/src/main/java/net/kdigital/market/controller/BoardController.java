@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.kdigital.market.dto.BoardDTO;
 import net.kdigital.market.service.BoardService;
+import net.kdigital.market.util.Base64.Base64util;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -66,6 +68,10 @@ public class BoardController {
     @GetMapping("/boardDetail")
     public String boardDetail(@RequestParam(name = "boardNum") Long boardNum, Model model) {
         BoardDTO dto = service.selectOne(boardNum);
+
+        // Base64 디코딩
+        dto.setContents(new String(Base64util.decode(dto.getContents())));
+
         model.addAttribute("board", dto);
         return "board/boardDetail";
     }

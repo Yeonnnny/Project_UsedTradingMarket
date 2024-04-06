@@ -17,6 +17,7 @@ import net.kdigital.market.entity.BoardEntity;
 import net.kdigital.market.entity.MemEntity;
 import net.kdigital.market.repository.BoardRepository;
 import net.kdigital.market.repository.MemRepository;
+import net.kdigital.market.util.Base64.Base64util;
 
 @Slf4j
 @Service
@@ -54,6 +55,13 @@ public class BoardService {
     public void insert(BoardDTO boardDTO) {
         // soldout 값 넣기
         boardDTO.setSoldout(SoldoutEnum.N);
+
+        // CKEditor로 입력받은 contents 컬럼
+        // 1) contents 값 base64 인코딩
+        String contents = boardDTO.getContents();
+        String base64Contents = Base64util.encode(contents.getBytes());
+        // 2) 인코딩된 값으로 contents 값 변경
+        boardDTO.setContents(base64Contents);
 
         Optional<MemEntity> memEntity = memRepository.findById(boardDTO.getMemId());
         if (memEntity.isPresent()) {
