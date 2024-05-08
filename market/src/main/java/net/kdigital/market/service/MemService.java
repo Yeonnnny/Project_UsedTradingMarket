@@ -18,6 +18,7 @@ import net.kdigital.market.entity.MemEntity;
 import net.kdigital.market.repository.BoardRepository;
 import net.kdigital.market.repository.CommentRepository;
 import net.kdigital.market.repository.MemRepository;
+import net.kdigital.market.util.Base64.Base64util;
 
 @Service
 @RequiredArgsConstructor
@@ -69,8 +70,9 @@ public class MemService {
             MemEntity memEntity = entity.get();
             List<BoardEntity> boardEntityList = boardRepository.findAllByMemEntityOrderByBoardNumDesc(memEntity);
 
-            boardEntityList.forEach((e) -> {
-                boardDTOList.add(BoardDTO.toDTO(e, memId));
+            boardEntityList.forEach((e) -> { 
+                BoardDTO dto = BoardDTO.toDTO(e, memId);
+                boardDTOList.add(dto);
             });
         }
         return boardDTOList;
@@ -96,7 +98,8 @@ public class MemService {
         List<BoardDTO> dtoList = new ArrayList<>();
 
         commentEntityList.forEach((entity) -> {
-            dtoList.add(BoardDTO.toDTO(entity.getBoardEntity(), memId));
+            BoardDTO dto = BoardDTO.toDTO(entity.getBoardEntity(), memId);
+            dtoList.add(dto);
         });
 
         // 중복제거를 위해 Set 리스트에 넣기
@@ -119,7 +122,8 @@ public class MemService {
         List<BoardDTO> boardDTOList = new ArrayList<>();
 
         boardEntityList.forEach((entity) -> {
-            boardDTOList.add(BoardDTO.toDTO(entity, entity.getMemEntity().getMemId()));
+            BoardDTO dto = BoardDTO.toDTO(entity, entity.getMemEntity().getMemId());            
+            boardDTOList.add(dto);
         });
 
         return boardDTOList;

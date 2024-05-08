@@ -39,8 +39,8 @@ public class BoardService {
         entiyList.forEach((entity) -> {
             // 판매 가능한 상품만 반환 리스트에 담기
             if (entity.getSoldout() == SoldoutEnum.N) {
-                dtoList.add(
-                        BoardDTO.toDTO(entity, entity.getMemEntity().getMemId()));
+                BoardDTO dto = BoardDTO.toDTO(entity, entity.getMemEntity().getMemId());
+                dtoList.add(dto);
             }
         });
 
@@ -56,12 +56,12 @@ public class BoardService {
         // soldout 값 넣기
         boardDTO.setSoldout(SoldoutEnum.N);
 
-        // CKEditor로 입력받은 contents 컬럼
-        // 1) contents 값 base64 인코딩
-        String contents = boardDTO.getContents();
-        String base64Contents = Base64util.encode(contents.getBytes());
-        // 2) 인코딩된 값으로 contents 값 변경
-        boardDTO.setContents(base64Contents);
+        // // CKEditor로 입력받은 contents 컬럼
+        // // 1) contents 값 base64 인코딩
+        // String contents = boardDTO.getContents();
+        // String base64Contents = Base64util.encode(contents.getBytes());
+        // // 2) 인코딩된 값으로 contents 값 변경
+        // boardDTO.setContents(base64Contents);
 
         Optional<MemEntity> memEntity = memRepository.findById(boardDTO.getMemId());
         if (memEntity.isPresent()) {
@@ -84,7 +84,10 @@ public class BoardService {
 
         if (entity.isPresent()) {
             BoardEntity boardEntity = entity.get();
-            return BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId());
+            BoardDTO dto = BoardDTO.toDTO(boardEntity, boardEntity.getMemEntity().getMemId());
+            // // Base64 디코딩
+            // dto.setContents(new String(Base64util.decode(dto.getContents())));
+            return dto;
         }
 
         return null;

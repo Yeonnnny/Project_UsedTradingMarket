@@ -69,9 +69,6 @@ public class BoardController {
     public String boardDetail(@RequestParam(name = "boardNum") Long boardNum, Model model) {
         BoardDTO dto = service.selectOne(boardNum);
 
-        // Base64 디코딩
-        dto.setContents(new String(Base64util.decode(dto.getContents())));
-
         model.addAttribute("board", dto);
         return "board/boardDetail";
     }
